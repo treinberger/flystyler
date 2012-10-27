@@ -23,6 +23,13 @@ If you change the document on the webserver, the corresponding view will change 
 
 Please note: currently, the view styles aren't reset to default values, so e.g. if as a first step change the property "left" of a view to "20dp" and then remove the property, the assignment "left:'20dp'" will apply for the view unless you explicitly change it to another value.
 
+## Tag styling
+
+In order to be able to change Tag styles, you'll currently modify your alloy installation like this (in Alloy/commands/compile/parsers/default.js, around line 27, just before the return statement):
+
+	code += args.symbol + ".Tag = '" + node.nodeName + "';\n"
+
+
 ## Moarrr
 
 Should you have an questions or suggestions, send me an [e-Mail](mailto:treinberger@appcelerator.com).
