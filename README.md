@@ -29,6 +29,11 @@ In order to be able to change Tag styles, you'll currently modify your alloy ins
 
 	code += args.symbol + ".Tag = '" + node.nodeName + "';\n"
 
+## Release notes
+
+0.1	initial release
+0.2	added public method stop() which is also called internally when the view is closed in order to stop monitoring the http resource
+
 
 ## Moarrr
 

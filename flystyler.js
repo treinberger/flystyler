@@ -1,7 +1,12 @@
 //initialize by specifying web server
 
+var timer = null;
+
 function __init(styleUrl, view) {
 
+	view.on("close", function(e) {
+		__stop();
+	});
 	//create http requests, one after the other
 
 	//1) by class
@@ -14,7 +19,7 @@ function __init(styleUrl, view) {
 	Ti.API.debug("#Views = " + views.length);
 	var started = false;
 	var currentStyleDefinition = "";
-	setInterval(function() {
+	timer = setInterval(function() {
 
 		if (!started) {
 			var xhr = Ti.Network.createHTTPClient({
@@ -53,6 +58,7 @@ function __init(styleUrl, view) {
 									Ti.API.debug("match by Ti ns!");
 									_.extend(views[i], styleDefinition[currentView.Tag]);
 								}
+								currentView = null;
 							}
 							currentStyleDefinition = this.responseText;
 							started = false;
@@ -65,6 +71,8 @@ function __init(styleUrl, view) {
 					} catch (e) {
 						Ti.API.debug(JSON.stringify(e));
 						started = false;
+					} finally {
+						xhr = null;
 					}
 
 				},
@@ -85,6 +93,12 @@ function __init(styleUrl, view) {
 
 }
 
+function __stop() {
+	if (timer != null)
+		clearInterval(timer);
+	Ti.API.debug("flystyler stopped.");
+}
+
 function getViews(view) {
 	var result = [];
 
@@ -100,3 +114,4 @@ function getViews(view) {
 }
 
 exports.init = __init;
+exports.stop = __stop;
