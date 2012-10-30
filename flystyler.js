@@ -100,7 +100,9 @@ function __stop() {
 }
 
 function getViews(view) {
-	var result = [];
+	var result = [1];
+	
+	result[0] = view;
 
 	var thisChildren = view.getChildren();
 
